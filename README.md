@@ -12,6 +12,7 @@ The Sacramento crime January 2006 dataset contains 7,584 crime records, as made 
 * Kafka, 2.10+
 * Kibana, 4.1.1+
 * Python 2.7+
+* IQ 120+
 
 ### To install necessary python libraries:
 
