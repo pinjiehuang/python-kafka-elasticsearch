@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.Properties;
 
 import kafka.javaapi.producer.Producer;
@@ -18,11 +22,12 @@ public class CSVProducer {
 		producer = new Producer<>(new ProducerConfig(properties));
 	}
 
-	public static void main(final String[] args) {
+	public static void main(final String[] args) throws Exception {
 
-		final String topic = args[0];
-		final String msg = args[1];
-		final KeyedMessage<String, String> data = new KeyedMessage<>(topic, msg);
+		System.out.println("Usage: <csv file> <topic> <hostname> <port>");
+
+		final String csvfile = args[0];
+		final String topic = args[1];
 
 		String host = null;
 		if (args.length >= 3) {
@@ -40,7 +45,20 @@ public class CSVProducer {
 		}
 
 		new CSVProducer(host, port);
-		producer.send(data);
+
+		final File csv = new File(csvfile);
+		final FileInputStream fis = new FileInputStream(csv);
+
+		final BufferedReader br = new BufferedReader(new InputStreamReader(fis));
+
+		String line = null;
+		while ((line = br.readLine()) != null) {
+			final KeyedMessage<String, String> data = new KeyedMessage<>(topic,
+					line);
+			producer.send(data);
+		}
+
+		br.close();
 		producer.close();
 	}
 }
