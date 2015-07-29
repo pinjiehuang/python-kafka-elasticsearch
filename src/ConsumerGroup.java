@@ -52,7 +52,7 @@ public class ConsumerGroup {
 		List<Thread> threads = new ArrayList<>();
 		for (final KafkaStream stream : streams) {
 			//executor.submit(new ConsumerTest(stream, threadNumber));
-			Thread t = new Thread(new HighLevelConsumer(stream, threadNumber));
+			Thread t = new Thread(new HighLevelConsumer(stream, threadNumber, "/user/jiezhen/"+topic+threadNumber+".csv"));
 			threads.add(t);
 			t.start();
 			threadNumber++;

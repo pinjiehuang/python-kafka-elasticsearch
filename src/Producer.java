@@ -9,7 +9,7 @@ import org.apache.kafka.common.serialization.StringSerializer;
 public class Producer {
 	public static void main(String args[]) throws InterruptedException, ExecutionException {
 		Properties props = new Properties();
-		props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,"localhost:9092");
+		props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,"polaroid.us.oracle.com:9092");
 		props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,StringSerializer.class.getName());
 		props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,StringSerializer.class.getName());
 
