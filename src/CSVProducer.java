@@ -52,13 +52,19 @@ public class CSVProducer {
 		final BufferedReader br = new BufferedReader(new InputStreamReader(fis));
 
 		String line = null;
+		int count = 0;
+
 		while ((line = br.readLine()) != null) {
 			final KeyedMessage<String, String> data = new KeyedMessage<>(topic,
 					line);
 			producer.send(data);
+			count++;
 		}
 
 		br.close();
 		producer.close();
+
+		System.out.println(count + " messages sent to topic: " + topic + " at "
+				+ host + " : " + port);
 	}
 }
